@@ -28,3 +28,9 @@ Pour lancer le projet, utilisez la commande `npm run dev`.
 Si le projet est sur le port 3000 alors il suffit d'aller sur `localhost:3000/pages/signup` afin de s'inscrire et d'aller sur `localhost:3000/pages/login` afin de se connecter.
 
 **Il est à noter que l'interface Web avec la liste des utilisateurs ne fonctionne pas afin de supprimer/modifier un utilisateur. Pour cela, il faut quand même faire les reqûetes soit-même sur Postman**
+
+![alt text](image.png)
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
