@@ -30,7 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Connexion réussie !");
         console.log("Réponse du serveur :", data);
         // rediriger ou afficher autre chose ici jsp, faudra renvoyer vers la page de gestion des comptes 
-        location.href = '/pages/signup';
+        localStorage.setItem("authToken", data.token)
+        location.href = '/pages/user-management';
       } else {
         alert(`Erreur lors de la connexion : ${data.message}`);
       }
