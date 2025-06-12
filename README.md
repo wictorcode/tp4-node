@@ -4,8 +4,6 @@ Ce projet à été crée dans le cadre du quatrième TP du cours de Dev. Avancé
 
 Réalisé par Victor VAUTRIN
 
-J'ai décidé de réaliser ce TP en TypeScript.
-
 ## Comment installer/lancer le TP
 
 Pour lancer ce projet, il est nécéssaire de le cloner.
@@ -24,6 +22,8 @@ MONGO_URI=
 ```
 
 Il suffit de remplir chaque champ avec ses données.
+
+Pour lancer le projet, utilisez la commande `npm run dev`.
 
 Si le projet est sur le port 3000 alors il suffit d'aller sur `localhost:3000/pages/signup` afin de s'inscrire et d'aller sur `localhost:3000/pages/login` afin de se connecter.
 
