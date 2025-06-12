@@ -43,5 +43,41 @@ export const UserController = {
         } catch (error) {
             res.status(500).json({ error: "Internal server error" });
         }
+    },
+
+
+
+    async updateUser(req: Request, res: Response) {
+        try {
+            const userId = req.params.id;
+            const updateData = req.body;
+
+            const existingUser = await UserModel.findById(userId);
+            if (!existingUser) {
+                return res.status(404).json({ error: "User not found" });
+            }
+
+            if (updateData.password) {
+                const saltRounds = 12;
+                updateData.password = await bcrypt.hash(updateData.password, saltRounds);
+            }
+
+            const updatedUser = await UserModel.findByIdAndUpdate(
+                userId,
+                updateData,
+                { 
+                    new: true, // Retourne le document mis à jour
+                    runValidators: true, // Exécute les validations du schéma
+                    omitUndefined: true // Ignore les champs undefined
+                }
+            );
+
+            //@ts-ignore
+            const { password, ...userWithoutPassword } = updatedUser.toObject();
+            res.status(200).json(userWithoutPassword);
+
+        } catch (error) {
+            res.status(500).json({ error: "Internal server error" });
+        }
     }
 }

@@ -1,6 +1,5 @@
 // CORRIGE TP3
 // @ts-nocheck
-import { getAllTours, getTourById, updateTour } from '../services/tour.service';
 import { APIfeatures } from '../utils/apiFeatures'
 import { Tour } from '../models/tour.model'
 

@@ -32,7 +32,7 @@ apiRouter.post("/login", AuthController.login)
 apiRouter.get("/users", verifyToken, checkRole("moderator"), UserController.getAllUsers)
 apiRouter.get("/users/:id", verifyToken, checkRole("admin"), UserController.getUserById);
 apiRouter.delete("/users/:id", verifyToken, checkRole("admin"), UserController.deleteUser);
-// apiRouter.patch("/users/:id", verifyToken, checkRole("admin"), )
+apiRouter.patch("/users/:id", verifyToken, checkRole("admin"), UserController.updateUser)
 
 
 
@@ -43,14 +43,14 @@ apiRouter.route('/tours/top-5-cheap')
 
 apiRouter
     .route('/tours')
-    .get(getAllToursController)
-    .post(createTour)
+    .get(verifyToken, checkRole("moderator"), getAllToursController)
+    .post(verifyToken, checkRole("admin"), createTour)
 
-apiRouter.route('/tours/tour-stats').get(getToursStats)
-apiRouter.route('/tours/monthly-plan/:year').get(getMonthlyPlan)
-apiRouter.route('/tours/filter').get(filterTours)
+apiRouter.route('/tours/tour-stats').get(verifyToken, checkRole("moderator"), getToursStats)
+apiRouter.route('/tours/monthly-plan/:year').get(verifyToken, checkRole("moderator"), getMonthlyPlan)
+apiRouter.route('/tours/filter').get(verifyToken, checkRole("moderator"), filterTours)
 apiRouter
     .route('/tours/:id')
-    .get(getTourByIdController)
-    .put(updateTourController)
-    .delete(deleteTour)
+    .get(verifyToken, checkRole("moderator"), getTourByIdController)
+    .put(verifyToken, checkRole("admin"), updateTourController)
+    .delete(verifyToken, checkRole("admin"), deleteTour)
