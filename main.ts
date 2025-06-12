@@ -4,6 +4,7 @@ import { apiRouter } from "./routes/api.routes"
 import { UserModel } from "./models/user.model"
 import dotenv from "dotenv"
 import path from "path"
+import { pageRouter } from "./routes/pages.routes"
 
 const app = express()
 app.use(express.json())
@@ -29,7 +30,8 @@ function connectToMongoDB() {
 }
 
 function setupRouters() {
-    app.use("/", apiRouter)
+    app.use("/api", apiRouter)
+    app.use("/pages", pageRouter)
 }
 
 
@@ -41,16 +43,6 @@ function startPortListening() {
         console.log(`App running on port ${port}`);
     })
 }
-
-// const nouvelUtilisateur = new UserModel({
-    //     name: "Jean Dupont",
-    //     email: "jean.dupont+2@example.com",
-    //     password: "motdepasse123",
-    //     role: "user"
-    // });
-
-    // await nouvelUtilisateur.save();
-    // console.log("Utilisateur crée :", nouvelUtilisateur);
 
 
 

@@ -16,5 +16,5 @@ apiRouter.post("/signup", (req, res) => {
 })
 
 apiRouter.post("/login", (req, res) => {
-    res.send("/login")
+    AuthController.login(req, res)
 })
