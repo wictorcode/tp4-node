@@ -1,17 +1,24 @@
 import express from "express"
 import mongoose from "mongoose"
-import { appRouter } from "./routes/app.routes"
+import { apiRouter } from "./routes/api.routes"
 import { UserModel } from "./models/user.model"
-
-const connectString ="mongodb+srv://vautrinvic:nSaPwmhqsCTVLG18@clustertp4.c3p2o2w.mongodb.net/?retryWrites=true&w=majority&appName=ClusterTP4"
+import dotenv from "dotenv"
+import path from "path"
 
 const app = express()
 app.use(express.json())
+dotenv.config();
 
 
+// CONSTANTS //
+
+const mongoUri: string = process.env.MONGO_URI as string
+const port: number = parseInt(process.env.PORT as string)
+
+app.use(express.static(path.join(__dirname, "./public")))
 
 function connectToMongoDB() {
-    mongoose.connect(connectString)
+    mongoose.connect(mongoUri)
     .then(() => {
         console.log("Connection to MongoDB has succeeded !!")
         startPortListening()
@@ -22,32 +29,29 @@ function connectToMongoDB() {
 }
 
 function setupRouters() {
-    app.use("/", appRouter)
+    app.use("/", apiRouter)
 }
 
 
-async function startPortListening() {
+function startPortListening() {
     
     setupRouters()
     
-    const port = 3000
     app.listen(port, () => {
         console.log(`App running on port ${port}`);
     })
-
-    const nouvelUtilisateur = new UserModel({
-        name: "Jean Dupont",
-        email: "jean.dupont@example.com",
-        password: "motdepasse123",
-        role: "user"
-    });
-
-    await nouvelUtilisateur.save();
-    console.log("Utilisateur crée :", nouvelUtilisateur);
-    
-
-
 }
+
+// const nouvelUtilisateur = new UserModel({
+    //     name: "Jean Dupont",
+    //     email: "jean.dupont+2@example.com",
+    //     password: "motdepasse123",
+    //     role: "user"
+    // });
+
+    // await nouvelUtilisateur.save();
+    // console.log("Utilisateur crée :", nouvelUtilisateur);
+
 
 
 connectToMongoDB()
